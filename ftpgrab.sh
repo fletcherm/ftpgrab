@@ -234,6 +234,10 @@ function ftpgrabProcess() {
   else
     local _FILES=$(wget -q ${FTP_WGET} -O - "$_ADDRESS$_PATH" | grep -o 'ftp:[^"]*')
   fi
+  if [ -z "$_FILES" ]
+  then
+    return 0
+  fi
   if [ "$DL_SHUFFLE" == "1" ]
   then
     local _FILES=$(echo -e "$_FILES" | shuf)
